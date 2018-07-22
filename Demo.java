@@ -23,8 +23,10 @@ public class Demo {
 			System.out.println("Voer uw keuze in:");
 			int invoer = sc.nextInt();
 			if(invoer>=0 && invoer <=6) {
-				new Attractie().draaien((invoer-1));
+				Attractie attractie = new Attractie();
+				attractie.draaien((invoer-1));
 				kassa.verkochteKaartjes++;
+			
 				System.out.println("Nog een andere attratie? Toets dan 1 voor ja. Wilt u de omzet of kaartverkoop inzien druk dan 0.");
 				invoer2 = sc.nextInt();
 			}
@@ -34,8 +36,9 @@ public class Demo {
 		do {
 		System.out.println("Toets o voor omzet of k voor kaartenverkoop.");
 		invoer1 = sc.next().charAt(0);
+		Attractie attractie = new Attractie();
 		if( invoer1 == 111) {
-			kassa.omzetTonen();
+			System.out.println(attractie.omzet);
 		}
 		if(invoer1 == 107) {
 			kassa.verkochtekaartjesTonen();
@@ -47,6 +50,7 @@ public class Demo {
 		
 		invoer4=sc.nextInt();
 	}while(invoer4 == 1);
+	System.out.println();
 	}
 	/*ArrayList<String> atr= new ArrayList();		
 	
@@ -61,16 +65,18 @@ class Attractie{
 	String naam;
 	int prijs;
 	int oppervlakte;
-	Kassa kassa = new Kassa();
-		
-	void draaien(int welke){
+	int omzet;
+	int omzettoon;
+	Kassa kassa = new Kassa();	
+	int draaien(int welke){
 		//System.out.println("De attractie " + atr.get(welke) + " draait.");
 		if(welke == 0) {
 			Botsauto botsauto = new Botsauto();
 			System.out.println("de attractie 'Botsauto' draait");
-			kassa.omzet(250);
+			omzettoon= omzet+250;
 			botsauto.omzet();
 			botsauto.verkochteKaartjes++;
+			return omzettoon;
 			}
 		if(welke == 1) {
 			Spin spin = new Spin();
@@ -81,7 +87,7 @@ class Attractie{
 			}
 		if(welke == 2) {
 			Spiegelpaleis spiegelpaleis = new Spiegelpaleis();
-			kassa.omzet(275);
+			this.kassa.omzet(275);
 			spiegelpaleis.omzet();
 			spiegelpaleis.verkochteKaartjes++;
 			System.out.println("de attractie 'Spiegelpaleis' draait");
@@ -107,6 +113,8 @@ class Attractie{
 			ladderklimmen.verkochteKaartjes++;
 			System.out.println("de attractie 'Ladderklimmen' draait");
 			}
+		return omzettoon;
+		
 	}
 }
 class Botsauto extends Attractie{
@@ -116,7 +124,7 @@ class Botsauto extends Attractie{
 	int omzet;
 	int verkochteKaartjes;
 	int omzet() {
-		omzet = omzet + 250;
+		this.omzet = omzet + 250;
 		return omzet;
 	}
 					
@@ -177,16 +185,16 @@ class Ladderklimmen extends Attractie{
 	}
 }
 class Kassa{
-	int omzet;
-	int omzettonen;
+	public int omzet = 0;
+	//int omzettonen;
 	int verkochteKaartjes;
 	int omzet(int plusbedrag) {
-		omzettonen = omzet+plusbedrag;
-		return omzettonen;
+		this.omzet = omzet+plusbedrag;
+		return omzet;
 	}
 	void omzetTonen(){
 		//omzettonen = this.omzet/100;
-		System.out.println("De omzet in centen: " + omzettonen);
+		System.out.println("De omzet in centen: " + omzet);
 	}
 	void verkochtekaartjesTonen() {
 		System.out.println("Er zijn " + verkochteKaartjes + " kaartjes verkocht.");
