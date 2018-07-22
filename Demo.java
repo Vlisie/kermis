@@ -8,6 +8,10 @@ public class Demo {
 	public static void main(String [] args) {
 		Kassa kassa = new Kassa();
 		Scanner sc = new Scanner(System.in);
+		int invoer2 = 1;
+		char invoer1;
+		int invoer4;
+	do {
 		System.out.println("Voer uw keuze in:");
 		System.out.println("1 voor botsauto's, \r\n" + 
 				"2 voor spin, \r\n" + 
@@ -15,20 +19,19 @@ public class Demo {
 				"4 voor spookhuis, \r\n" + 
 				"5 voor hawaii, \r\n" + 
 				"6 voor ladderklimmen.\r\n");
-		
-		int invoer2 = 1;
-		char invoer1;
-	
 		do {
+			System.out.println("Voer uw keuze in:");
 			int invoer = sc.nextInt();
 			if(invoer>=0 && invoer <=6) {
 				new Attractie().draaien((invoer-1));
 				kassa.verkochteKaartjes++;
-				System.out.println("Nog een andere attratie? Toets dan 1 voor ja of 0 voor nee.");
+				System.out.println("Nog een andere attratie? Toets dan 1 voor ja. Wilt u de omzet of kaartverkoop inzien druk dan 0.");
 				invoer2 = sc.nextInt();
 			}
 		}while( invoer2 == 1 );
 		
+		int invoer3;
+		do {
 		System.out.println("Toets o voor omzet of k voor kaartenverkoop.");
 		invoer1 = sc.next().charAt(0);
 		if( invoer1 == 111) {
@@ -37,7 +40,13 @@ public class Demo {
 		if(invoer1 == 107) {
 			kassa.verkochtekaartjesTonen();
 		}
+		System.out.println("Nog meer informatie bekijken? Druk 1 om de omzet of kaartverkoop te bekijken of 0 om te verlaten.");
+		invoer3 = sc.nextInt();
+		}while(invoer3 == 1);
+		System.out.println("Wilt u toch nog een attractie laten draaien? Toets dan 1. Toets 0 om te verlaten.");
 		
+		invoer4=sc.nextInt();
+	}while(invoer4 == 1);
 	}
 	/*ArrayList<String> atr= new ArrayList();		
 	
@@ -53,13 +62,7 @@ class Attractie{
 	int prijs;
 	int oppervlakte;
 	Kassa kassa = new Kassa();
-	//1Botsauto botsauto = new Botsauto();
-	
-	
-	
-	
-	
-	
+		
 	void draaien(int welke){
 		//System.out.println("De attractie " + atr.get(welke) + " draait.");
 		if(welke == 0) {
@@ -68,7 +71,6 @@ class Attractie{
 			kassa.omzet(250);
 			botsauto.omzet();
 			botsauto.verkochteKaartjes++;
-			
 			}
 		if(welke == 1) {
 			Spin spin = new Spin();
@@ -113,8 +115,9 @@ class Botsauto extends Attractie{
 	int oppervlakte = 100;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 250;
+		return omzet;
 	}
 					
 }
@@ -124,8 +127,9 @@ class Spin extends Attractie{
 	int oppervlakte = 100;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 225;
+		return omzet;
 	}
 }
 class Spiegelpaleis extends Attractie{
@@ -134,8 +138,9 @@ class Spiegelpaleis extends Attractie{
 	int oppervlakte = 300;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 275;
+		return omzet;
 	}
 }
 class Spookhuis extends Attractie{
@@ -144,8 +149,9 @@ class Spookhuis extends Attractie{
 	int oppervlakte = 400;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 320;
+		return omzet;
 	}
 }
 class Hawaii extends Attractie{
@@ -154,8 +160,9 @@ class Hawaii extends Attractie{
 	int oppervlakte = 50;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 290;
+		return omzet;
 	}
 }
 class Ladderklimmen extends Attractie{
@@ -164,21 +171,24 @@ class Ladderklimmen extends Attractie{
 	int oppervlakte = 200;
 	int omzet;
 	int verkochteKaartjes;
-	void omzet() {
+	int omzet() {
 		omzet = omzet + 500;
+		return omzet;
 	}
 }
 class Kassa{
 	int omzet;
+	int omzettonen;
 	int verkochteKaartjes;
-	void omzet(int plusbedrag) {
-		omzet = omzet+plusbedrag;
+	int omzet(int plusbedrag) {
+		omzettonen = omzet+plusbedrag;
+		return omzettonen;
 	}
 	void omzetTonen(){
-		int omzettonen = omzet/100;
-		System.out.println("De omzet in euro's: " + omzettonen);
+		//omzettonen = this.omzet/100;
+		System.out.println("De omzet in centen: " + omzettonen);
 	}
 	void verkochtekaartjesTonen() {
-		System.out.println("Er zijn " + verkochteKaartjes + " verkocht.");
+		System.out.println("Er zijn " + verkochteKaartjes + " kaartjes verkocht.");
 	}
 }
